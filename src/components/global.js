@@ -9,6 +9,6 @@ vueComponents.keys().forEach((filename) => {
 
   // Get PascalCase name of component
   const componentName = filename.replace(/^\.\//, '').replace(/\.\w+$/, '')
-  console.log('componentName:' + componentName)
+  console.log('componentName--:' + componentName)
   Vue.component(componentName, componentConfig.default || componentConfig)
 })

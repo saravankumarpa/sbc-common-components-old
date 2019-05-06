@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>Hey {{ msg }}.. Greetings from Common Lib</h1>
+    <h1>Hey {{ msg }}.. Greetings!---{{VUE_APP_COPS_REDIRECT_URL}}---{{message}}-</h1>
   </div>
 </template>
 
@@ -11,6 +11,12 @@ export default Vue.extend({
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data () {
+    return {
+      message: 'hello mr. magoo',
+      VUE_APP_COPS_REDIRECT_URL: 'HEYURL'
+    }
   }
 })
 </script>

@@ -20,6 +20,20 @@ npm run build
 npm run test
 ```
 
+### How to do local development
+
+use npm link for local dev.
+```
+go to the project root 
+
+npm link
+
+Go to the client project [where this module is being used]
+
+npm link sbc-common-components
+```
+
+
 ### How to publish in NPM
 ```
 npm publish --access public
@@ -56,6 +70,14 @@ in the template
   <HelloWorld msg="hey"></HelloWorld>
 ```
 
+### TODO - Pending taks
+
+- [ ] 
+- [ ] copy job to create licence etc
+- [ ] write tests
+- [ ] more documentation/github page
+- [ ] handle version update by script
+- [ ] change logs
 
 
 ### Customize configuration
