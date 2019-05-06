@@ -1,5 +1,15 @@
 # sbc-common-components
 
+The common components for all vue projects in SBC can reside here..
+As of now the project has following components
+
+* Header
+
+* Footer
+
+* Payment Calculator
+
+
 ## Project setup
 ```
 npm install
