@@ -5,21 +5,6 @@
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
 ### How to do local development
 
 use npm link for local dev.
@@ -32,6 +17,8 @@ Go to the client project [where this module is being used]
 
 npm link sbc-common-components
 ```
+
+
 
 
 ### How to publish in NPM
