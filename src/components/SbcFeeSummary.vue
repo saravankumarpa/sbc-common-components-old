@@ -2,9 +2,9 @@
     <v-card>
         <header>Fee Summary</header>
         <v-slide-y-transition group tag="ul" class="fee-list">
-            <li class="container fee-list__item" v-show="fee.name" v-for="fee in fees" :key="fee.id">
-                <div class="fee-list__item-name">{{fee.name}}</div>
-                <div class="fee-list__item-value">{{fee.value | currency}}</div>
+            <li class="container fee-list__item" v-show="fee.filing_type" v-for="fee in fees" :key="fee.filing_type">
+                <div class="fee-list__item-name">{{fee.filing_type}}</div>
+                <div class="fee-list__item-value">{{fee.filing_fees | currency}}</div>
             </li>
         </v-slide-y-transition>
         <div class="container fee-total">
@@ -19,30 +19,38 @@
     </v-card>
 </template>
 
-<script>
-export default {
-  name: 'sbc-fee-summary',
+<script lang="ts">
 
-  data: () => ({
-    fees: [
-      {
-        id: 'annualReport',
-        name: 'Annual Report Filing',
-        value: 30.00
-      }
-    ],
-    addressFee: {
-      id: 1,
-      name: 'Change Director Information',
-      value: 15.00
+    import FeeServices from '../services/fee.services'
+
+    export default {
+        name: 'sbc-fee-summary',
+        props: {
+            feecodes: {
+                type: Array,
+            },
+            entityType:{
+                type:   String,
+            }
+        },
+
+        data: () => ({
+            fees: [
+
+            ]
+        }),
+        computed: {
+            totalFees() {
+                return this.fees.reduce((acc, item) => acc + item.filing_fees, 0)
+            }
+        },
+        mounted() {
+            FeeServices.getFee(this.entityType, this.feecodes).then(data => {
+                this.fees = data
+            })
+
+        }
     }
-  }),
-  computed: {
-    totalFees () {
-      return this.fees.reduce((acc, item) => acc + item.value, 0)
-    }
-  }
-}
 </script>
 
 <style lang="stylus" scoped>
