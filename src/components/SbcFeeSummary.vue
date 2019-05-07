@@ -1,15 +1,15 @@
 <template>
     <v-card>
-        <header>Fee Summary</header>
+        <header><slot name="header">Fee Summary</slot></header>
         <v-slide-y-transition group tag="ul" class="fee-list">
-            <li class="container fee-list__item" v-show="fee.filing_type" v-for="fee in fees" :key="fee.filing_type">
+            <li class="container fee-list__item" v-show="fee.totalFee" v-for="fee in fees" :key="fee.filing_type">
                 <div class="fee-list__item-name">{{fee.filing_type}}</div>
-                <div class="fee-list__item-value">{{fee.filing_fees | currency}}</div>
+                <div class="fee-list__item-value">{{fee.totalFee | currency}}</div>
             </li>
         </v-slide-y-transition>
         <div class="container fee-total">
             <div class="fee-total__name">Total Fees</div>
-            <div class="fee-total__currency">CDN</div>
+            <div class="fee-total__currency">CAD</div>
             <div class="fee-total__value">
                 <v-slide-y-reverse-transition name="slide" mode="out-in">
                     <div :key="totalFees">{{totalFees | currency}}</div>
@@ -25,30 +25,28 @@
 
     export default {
         name: 'sbc-fee-summary',
-        props: {
-            feecodes: {
-                type: Array,
-            },
-            entityType:{
-                type:   String,
+        props:{
+            feeData : {
+                type: Array
             }
-        },
-
+        }
+        ,
         data: () => ({
-            fees: [
-
-            ]
+            fees: []
         }),
         computed: {
             totalFees() {
-                return this.fees.reduce((acc, item) => acc + item.filing_fees, 0)
+                return this.fees.reduce((acc, item) => acc + item.fee, 0)
             }
         },
         mounted() {
-            FeeServices.getFee(this.entityType, this.feecodes).then(data => {
-                this.fees = data
-            })
-
+        },
+        watch: {
+            feeData: function(newVal) {
+                FeeServices.getFee(this.feeData).then(data => {
+                    this.fees = data
+                })
+            }
         }
     }
 </script>
