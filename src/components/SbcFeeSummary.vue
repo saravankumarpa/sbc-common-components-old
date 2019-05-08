@@ -1,10 +1,12 @@
 <template>
     <v-card>
-        <header><slot name="header">Fee Summary</slot></header>
+        <header>
+            <slot name="header">Fee Summary</slot>
+        </header>
         <v-slide-y-transition group tag="ul" class="fee-list">
-            <li class="container fee-list__item" v-show="fee.totalFee" v-for="fee in fees" :key="fee.filing_type">
-                <div class="fee-list__item-name">{{fee.filing_type}}</div>
-                <div class="fee-list__item-value">{{fee.totalFee | currency}}</div>
+            <li class="container fee-list__item" v-show="lineItem.fee" v-for="lineItem in fees" :key="lineItem.filingType">
+                <div class="fee-list__item-name">{{lineItem.filingType}}</div>
+                <div class="fee-list__item-value">{{lineItem.fee | currency}}</div>
             </li>
         </v-slide-y-transition>
         <div class="container fee-total">
@@ -12,7 +14,7 @@
             <div class="fee-total__currency">CAD</div>
             <div class="fee-total__value">
                 <v-slide-y-reverse-transition name="slide" mode="out-in">
-                    <div :key="totalFees">{{totalFees | currency}}</div>
+                    <div>{{totalFilingFees | currency}}</div>
                 </v-slide-y-reverse-transition>
             </div>
         </div>
@@ -21,34 +23,47 @@
 
 <script lang="ts">
 
-    import FeeServices from '../services/fee.services'
+import FeeServices from '../services/fee.services'
 
-    export default {
-        name: 'sbc-fee-summary',
-        props:{
-            feeData : {
-                type: Array
-            }
-        }
-        ,
-        data: () => ({
-            fees: []
-        }),
-        computed: {
-            totalFees() {
-                return this.fees.reduce((acc, item) => acc + item.fee, 0)
-            }
-        },
-        mounted() {
-        },
-        watch: {
-            feeData: function(newVal) {
-                FeeServices.getFee(this.feeData).then(data => {
-                    this.fees = data
-                })
-            }
-        }
+export default {
+  name: 'sbc-fee-summary',
+  /*
+                  the props accept an array of filing data item's
+                  the fee should have below items
+                  filingDescription : not mandatory.If exists , it will be displayed. Or else what ever from service call will be shown
+                  filingTypeCode : mandatory.Feecodes like OTADD ,OTANN
+                  entityType : for example CP
+
+               */
+  props: {
+    filingData: {
+      type: Array,
+      default: function () {
+        return [{
+          filingDescription: '',
+          filingTypeCode: '',
+          entityType: ''
+        }]
+      }
     }
+  },
+
+  data: () => ({
+    fees: []
+  }),
+  computed: {
+    totalFilingFees () :number {
+      return this.fees.reduce((acc: number, item: { fee: number; }) => acc + item.fee, 0)
+    }
+  },
+  watch: {
+    filingData: function (newVal) {
+      FeeServices.getFee(this.filingData).then((data: any) => {
+        this.fees = data
+      })
+    }
+  }
+}
 </script>
 
 <style lang="stylus" scoped>
