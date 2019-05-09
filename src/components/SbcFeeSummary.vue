@@ -1,9 +1,9 @@
 <template>
     <v-card>
-        <header>
+        <header class="font-weight-bold px-3 py-3">
             <slot name="header">Fee Summary</slot>
         </header>
-        <v-slide-y-transition group tag="ul" class="fee-list">
+        <v-slide-y-transition group tag="ul" class="fee-list ">
             <li class="container fee-list__item" v-show="lineItem.fee" v-for="lineItem in fees" :key="lineItem.filingType">
                 <div class="fee-list__item-name">{{lineItem.filingType}}</div>
                 <div class="fee-list__item-value">{{lineItem.fee | currency}}</div>
@@ -69,10 +69,8 @@ export default {
 <style lang="stylus" scoped>
     @import "../assets/styl/theme.styl"
     header
-        padding 1rem 1.25rem
         color #fff
         background $BCgovBlue5
-        font-weight 700
 
     .container
         display flex
