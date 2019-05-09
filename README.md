@@ -10,9 +10,11 @@ As of now the project has following components
 * Payment Calculator
 
 
-## Project setup
+## How to consume it
 ```
-npm install
+npm install sbc-common-components --save
+
+and use individual components as you want
 ```
 
 ### How to do local development
@@ -65,6 +67,39 @@ import HelloWorld from 'sbc-common-components/src/components/HelloWorld.vue'
 
 in the template
   <HelloWorld msg="hey"></HelloWorld>
+```
+### Fee Calculator
+
+*since this compnents makes HTTP calls , the token should be in sessionstorage as KEYCLOAK_TOKEN*
+```
+
+in the template
+
+ <sbc-fee-summary  v-bind:filingData="[...filingData]" >
+       <template v-slot:header>
+     Fee Summary
+      </template>
+      
+ An ideal method which does a filing will look like
+ 
+  
+  fileAR : function () {
+       /*do your filing logic here */
+ 
+       this.feeData = {
+ 		 filingTypeCode: 'OTADD',
+         entityType: 'CP',
+         filingDescription :'Change of Registered office Address'
+       };
+       
+     }
+ 
+ 
+ ok!user removes filing
+ 
+ just set the object back to empty
+ this.feeData = [];
+      
 ```
 
 ### TODO - Pending taks
