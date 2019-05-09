@@ -1,11 +1,11 @@
 <template>
     <header class="app-header" fixed app>
         <div class="container">
-            <router-link to="/" class="navbar-brand">
+            <a href="/" class="navbar-brand">
                 <img class="brand-img" src="../assets/img/gov3_bc_logo.png"
                      alt="Province of British Columbia Logo"
                      title="Province of British Columbia"/>
-            </router-link>
+            </a>
         </div>
     </header>
 </template>
@@ -14,7 +14,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'SbcHeader'
+  name: 'sbc-header'
 })
 </script>
 

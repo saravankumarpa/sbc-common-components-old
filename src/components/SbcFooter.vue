@@ -14,11 +14,11 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue'
+import Vue from 'vue'
 
-    export default Vue.extend({
-        name: 'SbcFooter'
-    })
+export default Vue.extend({
+  name: 'sbc-footer'
+})
 </script>
 
 <style lang="stylus" scoped>
@@ -55,4 +55,3 @@
                     border-left 1px solid $BCgovBlue3
 
 </style>
-
