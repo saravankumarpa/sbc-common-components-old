@@ -6,7 +6,7 @@
         <v-slide-y-transition group tag="ul" class="fee-list ">
             <li class="container fee-list__item" v-show="lineItem.fee" v-for="lineItem in fees" :key="lineItem.filingType">
                 <div class="fee-list__item-name">{{lineItem.filingType}}</div>
-                <div class="fee-list__item-value">{{lineItem.fee | currency}}</div>
+                <div class="fee-list__item-value">{{lineItem.fee}}</div>
             </li>
         </v-slide-y-transition>
         <div class="container fee-total">
@@ -14,7 +14,7 @@
             <div class="fee-total__currency">CAD</div>
             <div class="fee-total__value">
                 <v-slide-y-reverse-transition name="slide" mode="out-in">
-                    <div>{{totalFilingFees | currency}}</div>
+                    <div>{{totalFilingFees }}</div>
                 </v-slide-y-reverse-transition>
             </div>
         </div>
