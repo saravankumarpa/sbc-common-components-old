@@ -51,13 +51,25 @@ export default {
   data: () => ({
     fees: []
   }),
+
+  mounted () {
+    console.log('%c FeeMdoule-Data Recieved on Mount as %s', 'color: blue ;font-size : 12px', JSON.stringify(this.filingData))
+    FeeServices.getFee(this.filingData).then(data => {
+      this.fees = data
+    })
+  },
   computed: {
     totalFilingFees () :number {
+      if (!this.fees) {
+        console.log('%c FeeMdoule-Watch ZERO FEE %s', 'color: blue ;font-size : 12px', JSON.stringify(this.filingData))
+        return 0
+      }
       return this.fees.reduce((acc: number, item: { fee: number; }) => acc + item.fee, 0)
     }
   },
   watch: {
     filingData: function (newVal) {
+      console.log('%c FeeMdoule-Watch Activated as %s', 'color: blue ;font-size : 12px', JSON.stringify(this.filingData))
       FeeServices.getFee(this.filingData).then((data: any) => {
         this.fees = data
       })

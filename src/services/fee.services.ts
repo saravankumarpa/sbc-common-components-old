@@ -38,13 +38,15 @@ export default {
       .catch(error => {
         switch (error.response.status) {
           case 400:
-            console.log('Probably fee code mismatch')
+            console.log('%c FeeMdoule-ERROR:Probably fee code mismatch %s', 'color: red ;font-size : 13px', JSON.stringify(this.filingData))
             break
           case 500:
-            console.log('Probably invalid token')
+            console.log('%c FeeMdoule-ERROR:Probably invalid Token %s', 'color: red ;font-size : 13px', JSON.stringify(this.filingData))
+
             break
           default:
-            console.log('unknown error')
+            console.log('%c FeeMdoule-ERROR:Probably unknown Error %s', 'color: red ;font-size : 13px', JSON.stringify(this.filingData))
+
         }
       })
   }
