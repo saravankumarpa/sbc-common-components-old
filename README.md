@@ -1,13 +1,9 @@
 # sbc-common-components
 
 The common components for all vue projects in SBC can reside here..
-As of now the project has following components
 
-* Header
+[visit the github page ](https://saravankumarpa.github.io/sbc-common-components/FeeCalculator/)
 
-* Footer
-
-* Payment Calculator
 
 
 ## How to consume it
@@ -55,59 +51,19 @@ npm run test:unit
 ```
 
 
-### how to consume the library
+### Components
 
-```
 
-install the package :   npm i sbc-common-components --save
-use it in a component by importing the necessary components
+[visit the github page ](https://saravankumarpa.github.io/sbc-common-components/FeeCalculator/)
 
-In the script
-import HelloWorld from 'sbc-common-components/src/components/HelloWorld.vue'
 
-in the template
-  <HelloWorld msg="hey"></HelloWorld>
-```
-### Fee Calculator
-
-*since this compnents makes HTTP calls , the token should be in sessionstorage as KEYCLOAK_TOKEN*
-```
-
-in the template
-
- <sbc-fee-summary  v-bind:filingData="[...filingData]" >
-       <template v-slot:header>
-     Fee Summary
-      </template>
-      
- An ideal method which does a filing will look like
- 
-  
-  fileAR : function () {
-       /*do your filing logic here */
- 
-       this.feeData = {
- 		 filingTypeCode: 'OTADD',
-         entityType: 'CP',
-         filingDescription :'Change of Registered office Address'
-       };
-       
-     }
- 
- 
- ok!user removes filing
- 
- just set the object back to empty
- this.feeData = [];
-      
-```
 
 ### TODO - Pending taks
 
-- [ ] 
-- [ ] copy job to create licence etc
+
+- [ ] copy job to create licence etc for npm repo
 - [ ] write tests
-- [ ] more documentation/github page
+- [ ] more documentation in github page
 - [ ] handle version update by script
 - [ ] change logs
 
