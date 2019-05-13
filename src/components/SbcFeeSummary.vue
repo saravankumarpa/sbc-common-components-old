@@ -3,10 +3,10 @@
         <header class="font-weight-bold px-3 py-3">
             <slot name="header">Fee Summary</slot>
         </header>
-        <v-slide-y-transition group tag="ul" class="fee-list ">
+        <v-slide-y-transition group tag="ul" class="fee-list">
             <li class="container fee-list__item" v-show="lineItem.fee" v-for="lineItem in fees" :key="lineItem.filingType">
                 <div class="fee-list__item-name">{{lineItem.filingType}}</div>
-                <div class="fee-list__item-value">{{lineItem.fee}}</div>
+                <div class="fee-list__item-value">{{lineItem.fee | currency }}</div>
             </li>
         </v-slide-y-transition>
         <div class="container fee-total">
@@ -14,7 +14,7 @@
             <div class="fee-total__currency">CAD</div>
             <div class="fee-total__value">
                 <v-slide-y-reverse-transition name="slide" mode="out-in">
-                    <div>{{totalFilingFees }}</div>
+                    <div>{{totalFilingFees | currency}}</div>
                 </v-slide-y-reverse-transition>
             </div>
         </div>
