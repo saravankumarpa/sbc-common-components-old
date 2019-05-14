@@ -3,13 +3,24 @@
         <header class="font-weight-bold px-3 py-3">
             <slot name="header">Fee Summary</slot>
         </header>
-        <v-slide-y-transition group tag="ul" class="fee-list">
-            <li class="container fee-list__item" v-show="lineItem.fee" v-for="lineItem in fees" :key="lineItem.filingType">
+
+        <div  v-show="fetchError">
+            <v-alert
+                    :value="true"
+                    color="error"
+                    icon="warning"
+                    outline
+            >{{fetchError}}
+            </v-alert>
+
+        </div>
+        <v-slide-y-transition group tag="ul" class="fee-list"  v-show="!fetchError">
+            <li class="container fee-list__item" v-show="lineItem.fee" v-for="lineItem in fees" :key="lineItem.filingType" >
                 <div class="fee-list__item-name">{{lineItem.filingType}}</div>
                 <div class="fee-list__item-value">{{lineItem.fee | currency }}</div>
             </li>
         </v-slide-y-transition>
-        <div class="container fee-total">
+        <div class="container fee-total" v-show="!fetchError">
             <div class="fee-total__name">Total Fees</div>
             <div class="fee-total__currency">CAD</div>
             <div class="fee-total__value">
@@ -49,13 +60,17 @@ export default {
   },
 
   data: () => ({
-    fees: []
+    fees: [],
+    fetchError: ''
   }),
 
   mounted () {
     console.log('%c FeeMdoule-Data Recieved on Mount as %s', 'color: blue ;font-size : 12px', JSON.stringify(this.filingData))
     FeeServices.getFee(this.filingData).then(data => {
+      this.fetchError = ''
       this.fees = data
+    }).catch((error: any) => {
+      this.fetchError = 'Error fetching fees'
     })
   },
   computed: {
@@ -71,7 +86,10 @@ export default {
     filingData: function (newVal) {
       console.log('%c FeeMdoule-Watch Activated as %s', 'color: blue ;font-size : 12px', JSON.stringify(this.filingData))
       FeeServices.getFee(this.filingData).then((data: any) => {
+        this.fetchError = ''
         this.fees = data
+      }).catch((error: any) => {
+        this.fetchError = 'Error fetching fees'
       })
     }
   }
